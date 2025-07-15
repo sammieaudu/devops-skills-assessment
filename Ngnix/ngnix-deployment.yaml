@@ -5,6 +5,7 @@ metadata:
   labels:
     app: nginx
 spec:
+  replicas: 1
   selector:
     matchLabels:
       app: nginx
@@ -15,7 +16,7 @@ spec:
     spec:
       containers:
       - name: nginx
-        image: nginx:current
+        image: nginx:latest
         ports:
         - containerPort: 80
         resources:
@@ -25,16 +26,3 @@ spec:
           requests:
             cpu: "0.2"
             memory: "128Mi"
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: nginx-service
-spec:
-  selector:
-    app: nginx
-  ports:
-  - protocol: TCP
-    port: 80
-    targetPort: 80
-  type: ClusterIP
